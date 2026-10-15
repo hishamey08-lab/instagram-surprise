@@ -1,11 +1,9 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Instagram Style Demo</title>
+<title>Instagram Style Login Demo</title>
 
 <style>
 * {
@@ -23,12 +21,7 @@ body {
     justify-content: center;
     padding: 20px;
     background: linear-gradient(
-        45deg,
-        #f09433,
-        #e6683c,
-        #dc2743,
-        #cc2366,
-        #bc1888
+        45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888
     );
 }
 
@@ -37,41 +30,30 @@ body {
     max-width: 380px;
     padding: 40px 30px;
     text-align: center;
-    background: #fff;
+    background: white;
     border-radius: 14px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 10px 40px rgba(0,0,0,.25);
 }
 
 .logo {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-family: "Brush Script MT", cursive;
     font-size: 38px;
     font-weight: bold;
-    background: linear-gradient(
-        45deg,
-        #f09433,
-        #e6683c,
-        #dc2743,
-        #cc2366,
-        #bc1888
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #dc2743;
 }
 
 h1 {
-    margin-bottom: 25px;
+    margin-bottom: 24px;
     color: #262626;
     font-size: 20px;
-    font-weight: 600;
     line-height: 1.4;
 }
 
 input {
     display: block;
     width: 100%;
-    padding: 12px 14px;
+    padding: 12px;
     margin-bottom: 12px;
     border: 1px solid #dbdbdb;
     border-radius: 6px;
@@ -82,7 +64,7 @@ input {
 
 input:focus {
     border-color: #a8a8a8;
-    background: #fff;
+    background: white;
 }
 
 button {
@@ -92,85 +74,63 @@ button {
     border: none;
     border-radius: 8px;
     background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
-    color: #fff;
+    color: white;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: opacity 0.2s, transform 0.2s;
 }
 
 button:hover {
-    opacity: 0.9;
+    opacity: .9;
 }
 
 button:active {
-    transform: scale(0.98);
-}
-
-button:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
+    transform: scale(.98);
 }
 
 .hidden {
     display: none !important;
 }
 
-.wait-text {
-    margin-top: 20px;
-    color: #262626;
-    font-size: 16px;
-    line-height: 1.6;
+.notice {
+    margin-top: 14px;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.5;
 }
 
 .spinner {
     width: 40px;
     height: 40px;
     margin: 0 auto 20px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #dc2743;
+    border: 4px solid #eee;
+    border-top-color: #dc2743;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
 
-.status-text {
-    margin-top: 12px;
-    color: #777;
-    font-size: 12px;
-    line-height: 1.5;
-}
-
-.secondary-btn {
-    background: #777;
+.wait-text {
+    margin: 15px 0;
+    color: #262626;
+    line-height: 1.6;
 }
 
 .admin-btn {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 50px;
     height: 50px;
     padding: 0;
-    margin: 0;
     border-radius: 50%;
-    background: #fff;
+    background: white;
     color: #dc2743;
     font-size: 22px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.admin-btn:hover {
-    opacity: 1;
-    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,.3);
 }
 
 .admin-panel {
@@ -181,31 +141,30 @@ button:disabled {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0,0,0,.6);
 }
 
 .admin-box {
     width: 100%;
-    max-width: 500px;
-    max-height: 80vh;
+    max-width: 550px;
+    max-height: 85vh;
     overflow-y: auto;
     padding: 25px;
     border-radius: 12px;
-    background: #fff;
+    background: white;
 }
 
 .admin-box h2 {
     margin-bottom: 15px;
-    color: #262626;
-    font-size: 20px;
     text-align: center;
 }
 
-.admin-box p {
-    margin-bottom: 12px;
-    color: #555;
-    font-size: 14px;
-    line-height: 1.5;
+.secondary {
+    background: #777;
+}
+
+.danger {
+    background: #dc2743;
 }
 
 table {
@@ -216,7 +175,7 @@ table {
 }
 
 th, td {
-    padding: 10px 8px;
+    padding: 9px 6px;
     border-bottom: 1px solid #eee;
     text-align: left;
     overflow-wrap: anywhere;
@@ -224,39 +183,33 @@ th, td {
 
 th {
     background: #fafafa;
-    color: #666;
+    color: #555;
+}
+
+.delete-one {
+    padding: 6px;
+    margin: 0;
+    background: #dc2743;
+    font-size: 12px;
 }
 
 .empty {
-    padding: 20px;
-    color: #999;
-    font-size: 14px;
+    padding: 20px 0;
+    color: #888;
     text-align: center;
 }
 
-.clear-btn {
-    background: #dc2743;
-}
-
-.notice {
-    margin-top: 15px;
-    color: #777;
-    font-size: 12px;
-    line-height: 1.5;
-}
-
-@media (max-width: 420px) {
+@media (max-width: 450px) {
     .card {
-        padding: 32px 22px;
+        padding: 30px 20px;
     }
 
     .admin-box {
-        padding: 20px;
+        padding: 16px;
     }
 
-    .admin-btn {
-        right: 15px;
-        bottom: 15px;
+    table {
+        font-size: 11px;
     }
 }
 </style>
@@ -264,22 +217,20 @@ th {
 
 <body>
 
-<!-- DEMO LOGIN PAGE -->
+<!-- LOGIN DEMO -->
 
 <div class="card" id="loginPage">
-
     <div class="logo">Instagram</div>
 
     <h1>Something big is waiting for you!</h1>
 
-    <form id="demoForm">
-
+    <form id="loginForm">
         <input
             type="text"
             id="username"
             placeholder="Demo username"
-            autocomplete="off"
             maxlength="50"
+            autocomplete="off"
             required
         >
 
@@ -287,45 +238,35 @@ th {
             type="password"
             id="password"
             placeholder="Demo password"
-            autocomplete="off"
+            autocomplete="new-password"
             required
         >
 
-        <button type="submit" id="loginBtn">
-            Continue to Demo
-        </button>
-
+        <button type="submit">Continue to Demo</button>
     </form>
 
     <p class="notice">
-        Educational demo only. Do not enter your real Instagram
-        username or password. Credentials are not saved or transmitted.
+        Educational demo. Use fictional details only.
+        The password you type is never stored.
     </p>
-
 </div>
 
 
 <!-- WAITING PAGE -->
 
 <div class="card hidden" id="waitPage">
-
     <div class="logo">Instagram</div>
 
     <div class="spinner"></div>
 
     <div class="wait-text">
-        Please wait here.<br>
-        Your demo is running!
+        Your demo is running!<br>
+        Please wait here.
     </div>
 
-    <p class="status-text" id="statusText">
-        Demo activity recorded locally.
-    </p>
-
-    <button type="button" id="backBtn" class="secondary-btn">
+    <button type="button" id="backBtn" class="secondary">
         Back to Home
     </button>
-
 </div>
 
 
@@ -333,378 +274,301 @@ th {
 
 <button
     type="button"
-    class="admin-btn hidden"
     id="adminBtn"
-    title="Open Demo Admin"
-    aria-label="Open demo admin panel"
->
-    ⚙
-</button>
+    class="admin-btn hidden"
+    aria-label="Open admin panel"
+>⚙</button>
 
 
 <!-- ADMIN PANEL -->
 
-<div
-    class="admin-panel hidden"
-    id="adminPanel"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="adminTitle"
->
-
+<div class="admin-panel hidden" id="adminPanel">
     <div class="admin-box">
 
-        <h2 id="adminTitle">Demo Admin Panel</h2>
+        <h2>Demo Admin Panel</h2>
 
-        <!-- ADMIN PASSWORD SCREEN -->
-
-        <div id="adminGate">
-
-            <p>
-                Enter the demo admin password to view
-                local demo activity.
-            </p>
-
-            <form id="adminForm">
-
-                <input
-                    type="password"
-                    id="adminPass"
-                    placeholder="Admin password"
-                    autocomplete="off"
-                    required
-                >
-
-                <button type="submit">
-                    Unlock
-                </button>
-
-            </form>
-
-            <button
-                type="button"
-                class="secondary-btn"
-                id="cancelAdminBtn"
+        <form id="adminForm">
+            <input
+                type="password"
+                id="adminPass"
+                placeholder="Admin password"
+                autocomplete="off"
+                required
             >
+
+            <button type="submit">Unlock</button>
+            <button type="button" id="cancelBtn" class="secondary">
                 Cancel
             </button>
-
-            <p class="notice">
-                This client-side password is for demonstration only,
-                not production security.
-            </p>
-
-        </div>
-
-
-        <!-- ADMIN DATA SCREEN -->
+        </form>
 
         <div id="adminData" class="hidden">
-
-            <p id="activityCount">
-                Demo activity count: 0
-            </p>
+            <p id="recordCount"></p>
 
             <table>
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Activity</th>
+                        <th>Username</th>
+                        <th>Generated Demo Password</th>
                         <th>Time</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
-
                 <tbody id="tableBody"></tbody>
             </table>
 
-            <div id="emptyMsg" class="empty hidden">
-                No demo activity recorded yet.
-            </div>
+            <p id="emptyMsg" class="empty hidden">
+                No demo records saved.
+            </p>
 
-            <button
-                type="button"
-                class="clear-btn"
-                id="clearBtn"
-            >
-                Clear Activity
+            <button type="button" id="clearBtn" class="danger">
+                Clear All Records
             </button>
 
-            <button
-                type="button"
-                class="secondary-btn"
-                id="closeAdminBtn"
-            >
+            <button type="button" id="closeBtn" class="secondary">
                 Close
             </button>
-
         </div>
 
+        <p class="notice">
+            Demo records are stored only in this browser.
+            This client-side admin password is not secure for production.
+        </p>
     </div>
-
 </div>
 
 
 <script>
 "use strict";
 
-/*
- * EDUCATIONAL DEMO
- *
- * This application does not save, transmit, or display
- * usernames or passwords.
- *
- * Demo activity contains only an event name and timestamp.
- */
-
 const ADMIN_PASSWORD = "9048";
+const STORAGE_KEY = "instagram_demo_records";
 
-const STORAGE_KEY = "instagram_demo_activity";
+const $ = id => document.getElementById(id);
 
-const loginPage = document.getElementById("loginPage");
-const waitPage = document.getElementById("waitPage");
-
-const demoForm = document.getElementById("demoForm");
-const usernameInput = document.getElementById("username");
-const passwordInput = document.getElementById("password");
-
-const loginBtn = document.getElementById("loginBtn");
-const backBtn = document.getElementById("backBtn");
-const statusText = document.getElementById("statusText");
-
-const adminBtn = document.getElementById("adminBtn");
-const adminPanel = document.getElementById("adminPanel");
-const adminForm = document.getElementById("adminForm");
-const adminPass = document.getElementById("adminPass");
-
-const adminGate = document.getElementById("adminGate");
-const adminData = document.getElementById("adminData");
-
-const tableBody = document.getElementById("tableBody");
-const activityCount = document.getElementById("activityCount");
-const emptyMsg = document.getElementById("emptyMsg");
-
-
-/* Safely read demo activity */
-
-function getActivity() {
+function getRecords() {
     try {
-        const saved = localStorage.getItem(STORAGE_KEY);
+        const records = JSON.parse(
+            localStorage.getItem(STORAGE_KEY) || "[]"
+        );
 
-        if (!saved) {
-            return [];
-        }
-
-        const parsed = JSON.parse(saved);
-
-        return Array.isArray(parsed) ? parsed : [];
-
-    } catch (error) {
-        console.error("Could not read demo activity:", error);
+        return Array.isArray(records) ? records : [];
+    } catch {
         return [];
     }
 }
 
-
-/* Save demo activity only */
-
-function recordActivity(eventName) {
-    const activities = getActivity();
-
-    activities.push({
-        event: eventName,
-        time: new Date().toLocaleString()
-    });
-
+function saveRecords(records) {
     try {
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(activities)
-        );
-    } catch (error) {
-        console.error("Could not save demo activity:", error);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+        return true;
+    } catch {
+        alert("Could not save records in this browser.");
+        return false;
     }
 }
 
+/*
+ * Create a random demo password.
+ * The password typed into the form is never stored.
+ */
+function generateDemoPassword() {
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
 
-/* LOGIN BUTTON */
+    const random = new Uint32Array(12);
+    crypto.getRandomValues(random);
 
-demoForm.addEventListener("submit", function (event) {
+    return Array.from(random, n => chars[n % chars.length]).join("");
+}
+
+
+/* LOGIN */
+
+$("loginForm").addEventListener("submit", event => {
     event.preventDefault();
 
-    const username = usernameInput.value.trim();
-    const password = passwordInput.value;
+    const username = $("username").value.trim();
+    const typedPassword = $("password").value;
 
-    if (!username || !password) {
+    if (!username || !typedPassword) {
         alert("Please fill in both demo fields.");
         return;
     }
 
     /*
-     * Do not store or transmit either input value.
-     * Only record that the demo was started.
+     * Do not save typedPassword.
+     * Save the username and a separately generated demo password.
      */
+    const record = {
+        id: crypto.randomUUID
+            ? crypto.randomUUID()
+            : String(Date.now()) + Math.random().toString(16).slice(2),
+        username: username,
+        demoPassword: generateDemoPassword(),
+        time: new Date().toLocaleString()
+    };
 
-    recordActivity("Demo started");
+    const records = getRecords();
+    records.push(record);
 
-    passwordInput.value = "";
-
-    loginPage.classList.add("hidden");
-    waitPage.classList.remove("hidden");
-    adminBtn.classList.remove("hidden");
-
-    statusText.textContent =
-        "Demo started. No credentials were saved.";
-
-    loginBtn.disabled = true;
-});
-
-
-/* BACK TO HOME BUTTON */
-
-backBtn.addEventListener("click", function () {
-    waitPage.classList.add("hidden");
-    loginPage.classList.remove("hidden");
-
-    usernameInput.value = "";
-    passwordInput.value = "";
-
-    loginBtn.disabled = false;
-
-    recordActivity("Returned to home");
-});
-
-
-/* OPEN ADMIN PANEL */
-
-function openAdmin() {
-    adminPanel.classList.remove("hidden");
-
-    adminGate.classList.remove("hidden");
-    adminData.classList.add("hidden");
-
-    adminPass.value = "";
-
-    setTimeout(function () {
-        adminPass.focus();
-    }, 50);
-}
-
-adminBtn.addEventListener("click", openAdmin);
-
-
-/* CLOSE ADMIN PANEL */
-
-function closeAdmin() {
-    adminPanel.classList.add("hidden");
-
-    adminPass.value = "";
-}
-
-document.getElementById("cancelAdminBtn")
-    .addEventListener("click", closeAdmin);
-
-document.getElementById("closeAdminBtn")
-    .addEventListener("click", closeAdmin);
-
-
-/* ADMIN PASSWORD CHECK */
-
-adminForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    if (adminPass.value !== ADMIN_PASSWORD) {
-        alert("Incorrect admin password!");
-        adminPass.value = "";
-        adminPass.focus();
+    if (!saveRecords(records)) {
         return;
     }
 
-    adminGate.classList.add("hidden");
-    adminData.classList.remove("hidden");
-
-    renderActivity();
+    $("password").value = "";
+    $("loginPage").classList.add("hidden");
+    $("waitPage").classList.remove("hidden");
+    $("adminBtn").classList.remove("hidden");
 });
 
 
-/* DISPLAY DEMO ACTIVITY */
+/* BACK TO HOME */
 
-function renderActivity() {
-    const activities = getActivity();
+$("backBtn").addEventListener("click", () => {
+    $("waitPage").classList.add("hidden");
+    $("loginPage").classList.remove("hidden");
+    $("username").value = "";
+    $("password").value = "";
+});
+
+
+/* OPEN ADMIN */
+
+$("adminBtn").addEventListener("click", () => {
+    $("adminPanel").classList.remove("hidden");
+    $("adminForm").classList.remove("hidden");
+    $("adminData").classList.add("hidden");
+    $("adminPass").value = "";
+    $("adminPass").focus();
+});
+
+
+/* CLOSE ADMIN */
+
+function closeAdmin() {
+    $("adminPanel").classList.add("hidden");
+    $("adminPass").value = "";
+}
+
+$("cancelBtn").addEventListener("click", closeAdmin);
+$("closeBtn").addEventListener("click", closeAdmin);
+
+$("adminPanel").addEventListener("click", event => {
+    if (event.target === $("adminPanel")) {
+        closeAdmin();
+    }
+});
+
+document.addEventListener("keydown", event => {
+    if (
+        event.key === "Escape" &&
+        !$("adminPanel").classList.contains("hidden")
+    ) {
+        closeAdmin();
+    }
+});
+
+
+/* CHECK ADMIN PASSWORD */
+
+$("adminForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    if ($("adminPass").value !== ADMIN_PASSWORD) {
+        alert("Incorrect admin password!");
+        $("adminPass").value = "";
+        return;
+    }
+
+    $("adminForm").classList.add("hidden");
+    $("adminData").classList.remove("hidden");
+
+    renderRecords();
+});
+
+
+/* DISPLAY SAVED DEMO RECORDS */
+
+function renderRecords() {
+    const records = getRecords();
+    const tableBody = $("tableBody");
 
     tableBody.replaceChildren();
 
-    activityCount.textContent =
-        "Demo activity count: " + activities.length;
+    $("recordCount").textContent =
+        "Total demo records: " + records.length;
 
-    emptyMsg.classList.toggle(
+    $("emptyMsg").classList.toggle(
         "hidden",
-        activities.length !== 0
+        records.length !== 0
     );
 
-    activities.forEach(function (item, index) {
+    records.forEach(record => {
         const row = document.createElement("tr");
 
-        const numberCell = document.createElement("td");
-        numberCell.textContent = String(index + 1);
+        const usernameCell = document.createElement("td");
+        usernameCell.textContent = record.username;
 
-        const eventCell = document.createElement("td");
-        eventCell.textContent = item.event || "Demo activity";
+        const passwordCell = document.createElement("td");
+        passwordCell.textContent = record.demoPassword;
 
         const timeCell = document.createElement("td");
-        timeCell.textContent = item.time || "Unknown";
+        timeCell.textContent = record.time;
 
-        row.append(numberCell, eventCell, timeCell);
+        const actionCell = document.createElement("td");
+        const deleteButton = document.createElement("button");
+
+        deleteButton.type = "button";
+        deleteButton.className = "delete-one";
+        deleteButton.textContent = "Delete";
+
+        deleteButton.addEventListener("click", () => {
+            const confirmed = confirm(
+                "Delete this demo record?"
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            const updated = getRecords().filter(
+                item => item.id !== record.id
+            );
+
+            if (saveRecords(updated)) {
+                renderRecords();
+            }
+        });
+
+        actionCell.appendChild(deleteButton);
+
+        row.append(
+            usernameCell,
+            passwordCell,
+            timeCell,
+            actionCell
+        );
 
         tableBody.appendChild(row);
     });
 }
 
 
-/* CLEAR ACTIVITY BUTTON */
+/* CLEAR ALL RECORDS */
 
-document.getElementById("clearBtn")
-    .addEventListener("click", function () {
-        const confirmed = confirm(
-            "Are you sure you want to clear all demo activity?"
-        );
-
-        if (!confirmed) {
-            return;
-        }
-
-        try {
-            localStorage.removeItem(STORAGE_KEY);
-        } catch (error) {
-            console.error("Could not clear activity:", error);
-        }
-
-        renderActivity();
-
-        alert("Demo activity cleared!");
-    });
-
-
-/* CLOSE PANEL WHEN CLICKING OUTSIDE THE BOX */
-
-adminPanel.addEventListener("click", function (event) {
-    if (event.target === adminPanel) {
-        closeAdmin();
+$("clearBtn").addEventListener("click", () => {
+    if (!confirm("Delete all saved demo records?")) {
+        return;
     }
-});
 
-
-/* CLOSE PANEL WITH ESCAPE */
-
-document.addEventListener("keydown", function (event) {
-    if (
-        event.key === "Escape" &&
-        !adminPanel.classList.contains("hidden")
-    ) {
-        closeAdmin();
+    if (saveRecords([])) {
+        renderRecords();
+        alert("All demo records cleared.");
     }
 });
 </script>
 
 </body>
 </html>
-```
+
