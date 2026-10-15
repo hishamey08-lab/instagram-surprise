@@ -1,64 +1,91 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Instagram - Something big is waiting</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  body {
+<title>Instagram Style Demo</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
     padding: 20px;
-  }
+    background: linear-gradient(
+        45deg,
+        #f09433,
+        #e6683c,
+        #dc2743,
+        #cc2366,
+        #bc1888
+    );
+}
 
-  .card {
-    background: #fff;
+.card {
     width: 100%;
     max-width: 380px;
-    border-radius: 14px;
     padding: 40px 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
     text-align: center;
-  }
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
 
-  .logo {
-    font-family: 'Brush Script MT', cursive, sans-serif;
+.logo {
+    margin-bottom: 10px;
+    font-family: "Brush Script MT", cursive;
     font-size: 38px;
     font-weight: bold;
-    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    background: linear-gradient(
+        45deg,
+        #f09433,
+        #e6683c,
+        #dc2743,
+        #cc2366,
+        #bc1888
+    );
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 10px;
-  }
+    color: transparent;
+}
 
-  h1 {
-    font-size: 20px;
-    color: #262626;
+h1 {
     margin-bottom: 25px;
+    color: #262626;
+    font-size: 20px;
     font-weight: 600;
     line-height: 1.4;
-  }
+}
 
-  input {
+input {
+    display: block;
     width: 100%;
     padding: 12px 14px;
     margin-bottom: 12px;
     border: 1px solid #dbdbdb;
     border-radius: 6px;
+    outline: none;
     background: #fafafa;
     font-size: 14px;
-    outline: none;
-  }
+}
 
-  input:focus { border-color: #a8a8a8; background: #fff; }
+input:focus {
+    border-color: #a8a8a8;
+    background: #fff;
+}
 
-  button {
+button {
     width: 100%;
     padding: 12px;
     margin-top: 8px;
@@ -69,20 +96,34 @@
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: opacity 0.2s;
-  }
+    transition: opacity 0.2s, transform 0.2s;
+}
 
-  button:hover { opacity: 0.9; }
-  button:active { transform: scale(0.98); }
+button:hover {
+    opacity: 0.9;
+}
 
-  .wait-text {
-    font-size: 16px;
-    color: #262626;
-    line-height: 1.6;
+button:active {
+    transform: scale(0.98);
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.wait-text {
     margin-top: 20px;
-  }
+    color: #262626;
+    font-size: 16px;
+    line-height: 1.6;
+}
 
-  .spinner {
+.spinner {
     width: 40px;
     height: 40px;
     margin: 0 auto 20px;
@@ -90,171 +131,580 @@
     border-top: 4px solid #dc2743;
     border-radius: 50%;
     animation: spin 1s linear infinite;
-  }
+}
 
-  @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
 
-  .admin-btn {
+.status-text {
+    margin-top: 12px;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.secondary-btn {
+    background: #777;
+}
+
+.admin-btn {
     position: fixed;
-    bottom: 20px;
     right: 20px;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 50px;
     height: 50px;
+    padding: 0;
+    margin: 0;
     border-radius: 50%;
     background: #fff;
     color: #dc2743;
     font-size: 22px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-  }
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
 
-  .admin-btn:hover { opacity: 1; transform: scale(1.05); }
+.admin-btn:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
 
-  .hidden { display: none !important; }
-
-  .admin-panel {
+.admin-panel {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.6);
+    inset: 0;
+    z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    z-index: 999;
-  }
+    background: rgba(0, 0, 0, 0.6);
+}
 
-  .admin-box {
-    background: #fff;
-    border-radius: 12px;
-    padding: 25px;
+.admin-box {
     width: 100%;
     max-width: 500px;
     max-height: 80vh;
     overflow-y: auto;
-  }
+    padding: 25px;
+    border-radius: 12px;
+    background: #fff;
+}
 
-  .admin-box h2 {
-    font-size: 18px;
+.admin-box h2 {
     margin-bottom: 15px;
     color: #262626;
+    font-size: 20px;
     text-align: center;
-  }
+}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    font-size: 13px;
-  }
-
-  th, td {
-    text-align: left;
-    padding: 8px;
-    border-bottom: 1px solid #eee;
-    word-break: break-all;
-  }
-
-  th { background: #fafafa; color: #666; }
-
-  .clear-btn {
-    background: #dc2743;
-    margin-top: 15px;
-  }
-
-  .gray-btn { background: #888; }
-
-  .empty {
-    text-align: center;
-    color: #999;
-    padding: 20px;
+.admin-box p {
+    margin-bottom: 12px;
+    color: #555;
     font-size: 14px;
-  }
-</style>
-</head>
-<body>
+    line-height: 1.5;
+}
 
-<!-- ============ PAGE 1: LOGIN ============ -->
-<div class="card" id="loginPage">
-  <div class="logo">Instagram</div>
-  <h1>Something big is waiting your Instagram</h1>
-  <input type="text" id="username" placeholder="Username" autocomplete="off" />
-  <input type="password" id="password" placeholder="Password" />
-  <button type="button" onclick="submitLogin()">Log In</button>
-</div>
+table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+    font-size: 13px;
+}
 
-<!-- ============ PAGE 2: WAIT PAGE ============ -->
-<div class="card hidden" id="waitPage">
-  <div class="spinner"></div>
-  <div class="wait-text">
-    Please wait here.<br>If you have luck it will come fast.
-  </div>
-</div>
+th, td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
 
-<!-- ============ ADMIN BUTTON (hidden on page 1) ============ -->
-<button type="button" class="admin-btn hidden" id="adminBtn" onclick="openAdmin()" title="Admin">⚙</button>
+th {
+    background: #fafafa;
+    color: #666;
+}
 
-<!-- ============ ADMIN PANEL ============ -->
-<div class="admin-panel hidden" id="adminPanel">
-  <div class="admin-box">
-    <h2>Admin Panel</h2>
+.empty {
+    padding: 20px;
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+}
 
-    <div id="adminGate">
-      <input type="password" id="adminPass" placeholder="Enter admin password" />
-      <button type="button" onclick="checkAdmin()">Unlock</button>
-      <button type="button" class="gray-btn" onclick="closeAdmin()">Cancel</button>
-    </div>
+.clear-btn {
+    background: #dc2743;
+}
 
-    <div id="adminData" class="hidden">
-      <table id="dataTable">
-        <thead>
-          <tr><th>Username</th><th>Password</th><th>Time</th></tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-      </table>
-      <div id="emptyMsg" class="empty hidden">No logins saved yet.</div>
-      <button type="button" class="clear-btn" onclick="clearData()">Clear All Data</button>
-      <button type="button" class="gray-btn" onclick="closeAdmin()">Close</button>
-    </div>
-  </div>
-</div>
+.notice {
+    margin-top: 15px;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.5;
+}
 
-<script>
-  // ============================================
-  // YOUR ADMIN PASSWORD
-  // ============================================
-  const ADMIN_PASSWORD = "9048";
-
-  // ---------- Login submit ----------
-  function submitLogin() {
-    const u = document.getElementById('username').value.trim();
-    const p = document.getElementById('password').value;
-
-    if (!u || !p) {
-      alert("Please enter username and password.");
-      return;
+@media (max-width: 420px) {
+    .card {
+        padding: 32px 22px;
     }
 
-    // Save to localStorage
-    const logins = JSON.parse(localStorage.getItem('ig_logins') || '[]');
-    logins.push({ user: u, pass: p, time: new Date().toLocaleString() });
-    localStorage.setItem('ig_logins', JSON.stringify(logins));
+    .admin-box {
+        padding: 20px;
+    }
 
-    // Switch to page 2
-    document.getElementById('loginPage').classList.add('hidden');
-    document.getElementById('waitPage').classList.remove('hidden');
+    .admin-btn {
+        right: 15px;
+        bottom: 15px;
+    }
+}
+</style>
+</head>
 
-    // Show admin button only on page 2
-    document.getElementById('adminBtn').classList.remove('hidden');
-  }
+<body>
 
-  // ---------- Open admin ----------
-  function openAdmin() {
-    document.getElementById('adminPanel').classList.remove('hidden');
-    document.getElementById('adminGate').classList.remove('hidden');
-    document.getElementById('adminData').
+<!-- DEMO LOGIN PAGE -->
+
+<div class="card" id="loginPage">
+
+    <div class="logo">Instagram</div>
+
+    <h1>Something big is waiting for you!</h1>
+
+    <form id="demoForm">
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Demo username"
+            autocomplete="off"
+            maxlength="50"
+            required
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Demo password"
+            autocomplete="off"
+            required
+        >
+
+        <button type="submit" id="loginBtn">
+            Continue to Demo
+        </button>
+
+    </form>
+
+    <p class="notice">
+        Educational demo only. Do not enter your real Instagram
+        username or password. Credentials are not saved or transmitted.
+    </p>
+
+</div>
+
+
+<!-- WAITING PAGE -->
+
+<div class="card hidden" id="waitPage">
+
+    <div class="logo">Instagram</div>
+
+    <div class="spinner"></div>
+
+    <div class="wait-text">
+        Please wait here.<br>
+        Your demo is running!
+    </div>
+
+    <p class="status-text" id="statusText">
+        Demo activity recorded locally.
+    </p>
+
+    <button type="button" id="backBtn" class="secondary-btn">
+        Back to Home
+    </button>
+
+</div>
+
+
+<!-- ADMIN BUTTON -->
+
+<button
+    type="button"
+    class="admin-btn hidden"
+    id="adminBtn"
+    title="Open Demo Admin"
+    aria-label="Open demo admin panel"
+>
+    ⚙
+</button>
+
+
+<!-- ADMIN PANEL -->
+
+<div
+    class="admin-panel hidden"
+    id="adminPanel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="adminTitle"
+>
+
+    <div class="admin-box">
+
+        <h2 id="adminTitle">Demo Admin Panel</h2>
+
+        <!-- ADMIN PASSWORD SCREEN -->
+
+        <div id="adminGate">
+
+            <p>
+                Enter the demo admin password to view
+                local demo activity.
+            </p>
+
+            <form id="adminForm">
+
+                <input
+                    type="password"
+                    id="adminPass"
+                    placeholder="Admin password"
+                    autocomplete="off"
+                    required
+                >
+
+                <button type="submit">
+                    Unlock
+                </button>
+
+            </form>
+
+            <button
+                type="button"
+                class="secondary-btn"
+                id="cancelAdminBtn"
+            >
+                Cancel
+            </button>
+
+            <p class="notice">
+                This client-side password is for demonstration only,
+                not production security.
+            </p>
+
+        </div>
+
+
+        <!-- ADMIN DATA SCREEN -->
+
+        <div id="adminData" class="hidden">
+
+            <p id="activityCount">
+                Demo activity count: 0
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Activity</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tableBody"></tbody>
+            </table>
+
+            <div id="emptyMsg" class="empty hidden">
+                No demo activity recorded yet.
+            </div>
+
+            <button
+                type="button"
+                class="clear-btn"
+                id="clearBtn"
+            >
+                Clear Activity
+            </button>
+
+            <button
+                type="button"
+                class="secondary-btn"
+                id="closeAdminBtn"
+            >
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+"use strict";
+
+/*
+ * EDUCATIONAL DEMO
+ *
+ * This application does not save, transmit, or display
+ * usernames or passwords.
+ *
+ * Demo activity contains only an event name and timestamp.
+ */
+
+const ADMIN_PASSWORD = "9048";
+
+const STORAGE_KEY = "instagram_demo_activity";
+
+const loginPage = document.getElementById("loginPage");
+const waitPage = document.getElementById("waitPage");
+
+const demoForm = document.getElementById("demoForm");
+const usernameInput = document.getElementById("username");
+const passwordInput = document.getElementById("password");
+
+const loginBtn = document.getElementById("loginBtn");
+const backBtn = document.getElementById("backBtn");
+const statusText = document.getElementById("statusText");
+
+const adminBtn = document.getElementById("adminBtn");
+const adminPanel = document.getElementById("adminPanel");
+const adminForm = document.getElementById("adminForm");
+const adminPass = document.getElementById("adminPass");
+
+const adminGate = document.getElementById("adminGate");
+const adminData = document.getElementById("adminData");
+
+const tableBody = document.getElementById("tableBody");
+const activityCount = document.getElementById("activityCount");
+const emptyMsg = document.getElementById("emptyMsg");
+
+
+/* Safely read demo activity */
+
+function getActivity() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+
+        if (!saved) {
+            return [];
+        }
+
+        const parsed = JSON.parse(saved);
+
+        return Array.isArray(parsed) ? parsed : [];
+
+    } catch (error) {
+        console.error("Could not read demo activity:", error);
+        return [];
+    }
+}
+
+
+/* Save demo activity only */
+
+function recordActivity(eventName) {
+    const activities = getActivity();
+
+    activities.push({
+        event: eventName,
+        time: new Date().toLocaleString()
+    });
+
+    try {
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(activities)
+        );
+    } catch (error) {
+        console.error("Could not save demo activity:", error);
+    }
+}
+
+
+/* LOGIN BUTTON */
+
+demoForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!username || !password) {
+        alert("Please fill in both demo fields.");
+        return;
+    }
+
+    /*
+     * Do not store or transmit either input value.
+     * Only record that the demo was started.
+     */
+
+    recordActivity("Demo started");
+
+    passwordInput.value = "";
+
+    loginPage.classList.add("hidden");
+    waitPage.classList.remove("hidden");
+    adminBtn.classList.remove("hidden");
+
+    statusText.textContent =
+        "Demo started. No credentials were saved.";
+
+    loginBtn.disabled = true;
+});
+
+
+/* BACK TO HOME BUTTON */
+
+backBtn.addEventListener("click", function () {
+    waitPage.classList.add("hidden");
+    loginPage.classList.remove("hidden");
+
+    usernameInput.value = "";
+    passwordInput.value = "";
+
+    loginBtn.disabled = false;
+
+    recordActivity("Returned to home");
+});
+
+
+/* OPEN ADMIN PANEL */
+
+function openAdmin() {
+    adminPanel.classList.remove("hidden");
+
+    adminGate.classList.remove("hidden");
+    adminData.classList.add("hidden");
+
+    adminPass.value = "";
+
+    setTimeout(function () {
+        adminPass.focus();
+    }, 50);
+}
+
+adminBtn.addEventListener("click", openAdmin);
+
+
+/* CLOSE ADMIN PANEL */
+
+function closeAdmin() {
+    adminPanel.classList.add("hidden");
+
+    adminPass.value = "";
+}
+
+document.getElementById("cancelAdminBtn")
+    .addEventListener("click", closeAdmin);
+
+document.getElementById("closeAdminBtn")
+    .addEventListener("click", closeAdmin);
+
+
+/* ADMIN PASSWORD CHECK */
+
+adminForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    if (adminPass.value !== ADMIN_PASSWORD) {
+        alert("Incorrect admin password!");
+        adminPass.value = "";
+        adminPass.focus();
+        return;
+    }
+
+    adminGate.classList.add("hidden");
+    adminData.classList.remove("hidden");
+
+    renderActivity();
+});
+
+
+/* DISPLAY DEMO ACTIVITY */
+
+function renderActivity() {
+    const activities = getActivity();
+
+    tableBody.replaceChildren();
+
+    activityCount.textContent =
+        "Demo activity count: " + activities.length;
+
+    emptyMsg.classList.toggle(
+        "hidden",
+        activities.length !== 0
+    );
+
+    activities.forEach(function (item, index) {
+        const row = document.createElement("tr");
+
+        const numberCell = document.createElement("td");
+        numberCell.textContent = String(index + 1);
+
+        const eventCell = document.createElement("td");
+        eventCell.textContent = item.event || "Demo activity";
+
+        const timeCell = document.createElement("td");
+        timeCell.textContent = item.time || "Unknown";
+
+        row.append(numberCell, eventCell, timeCell);
+
+        tableBody.appendChild(row);
+    });
+}
+
+
+/* CLEAR ACTIVITY BUTTON */
+
+document.getElementById("clearBtn")
+    .addEventListener("click", function () {
+        const confirmed = confirm(
+            "Are you sure you want to clear all demo activity?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            localStorage.removeItem(STORAGE_KEY);
+        } catch (error) {
+            console.error("Could not clear activity:", error);
+        }
+
+        renderActivity();
+
+        alert("Demo activity cleared!");
+    });
+
+
+/* CLOSE PANEL WHEN CLICKING OUTSIDE THE BOX */
+
+adminPanel.addEventListener("click", function (event) {
+    if (event.target === adminPanel) {
+        closeAdmin();
+    }
+});
+
+
+/* CLOSE PANEL WITH ESCAPE */
+
+document.addEventListener("keydown", function (event) {
+    if (
+        event.key === "Escape" &&
+        !adminPanel.classList.contains("hidden")
+    ) {
+        closeAdmin();
+    }
+});
+</script>
+
+</body>
+</html>
+```
